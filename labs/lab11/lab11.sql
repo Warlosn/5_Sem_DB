@@ -323,7 +323,6 @@ declare
             dbms_output.put_line(task13%rowcount||' '||rec.teacher_name||' '||rec.pulpit);
         end loop;
     end;
-
 -----------------------------------------
 declare
         cursor task13
@@ -333,16 +332,18 @@ declare
     begin
         open task13;
       fetch task13 into rec;
-      while task13%found
+     while task13%found
         loop
             dbms_output.put_line(rec.TEACHER_NAME);
             fetch task13 into rec;
+            --exit when task13%notfound;
         end loop;
         close task13;
     end;
 ---------------------------------------------
-declare
-      cursor cur(cap1 auditorium.auditorium%type,cap2 auditorium.auditorium%type)
+alter session set NLS_LANGUAGE='AMERICAN';
+declare cursor
+       cur(cap1 auditorium.auditorium%type,cap2 auditorium.auditorium%type)
             is select auditorium, auditorium_capacity from auditorium
             where auditorium_capacity between cap1 and cap2 for update;
     begin
@@ -350,24 +351,6 @@ declare
         dbms_output.put_line(pp.auditorium||' '||pp.auditorium_capacity);
       end loop;
     end;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
