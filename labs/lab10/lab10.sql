@@ -216,56 +216,57 @@ CREATE TABLE TEACHER
  
  
 delete  TEACHER;
-insert into  TEACHER    (TEACHER,   TEACHER_NAME, PULPIT )
-                       values  ('SVV',    'Smelov Vladimir Vladimirovich',  'ISIT');
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('ASI',    'Akynovich Stanislav Ivanovich',  'ISIT');
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('KLV',    'Kolesnikov Leonid Valerevich',  'ISIT');
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('GOV',    'German Oleg Vitoldovich',  'ISIT');
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('LAP',    'Lashenko Anatoliy Pavlovich',  'ISIT');
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('BAV',    'Brakovich Andrey Victorovich',  'ISIT');
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('DDA',     'Dedko Alexander Arkadevich',  'ISIT');
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('KAS',     'Kabaylo Alexander Seraphimovich',  'ISIT');
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('YPP',     'Yrbanovich Pavel Pavlovich',  'ISIT');
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('RDM',     'Romanenko Dmitriy Mihaylovich',  'ISIT');
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('PNN',  'Pystovalova Natalia Nikolaevna', 'ISIT' );
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('BSA',   'Bartashevich Svytoslav Alexandrovich',  'PEAIPS');
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('BSI',   'Baranovskiy Stasislav Ivanovich',  'ETAM');
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('NAV',   'Neverov Alexander Vasilevich',  'MAEOEM');
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('RAI',   'Rokovich Andrey Ivanovich',  'HS');
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('DMN', 'Demidko Marina Nikolaevna',  'LDALC');
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('MVP',   'Mashkovskiy Vladimir Petrovich',  'FM');
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('LKV',   'Laboha Konstantin Valentinovich',  'FF');
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('ZVB',   'Zvyagincev Vacheslav Borisovich',  'FPAWS'); 
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('BVS',   'Bezborodov Vladimir Stepanovic',  'OC'); 
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('PNR',   'Prokopchyk Nikalay Romanovich',  'TOPSAPOPM'); 
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('NMT',   'Nasovec Mihail Trofimovich',  'FT'); 
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('MSP',   'Mohov Sergey Petrovich',  'FMALT'); 
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('ELS',   'Eshenko Ludmila Semenovna',  'TOISAGCT'); 
-insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
-                       values  ('JIM',   'Jarski Ivan Mihaylovich',  'CTOEPAMOEE'); 
+insert into  TEACHER    (TEACHER,   TEACHER_NAME, PULPIT, BIRTHDAY,SALARY)
+                       values  ('SVV',    'Smelov Vladimir Vladimirovich',  'ISIT', '1988-12-01', 870);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT, BIRTHDAY,SALARY )
+                       values  ('ASI',    'Akynovich Stanislav Ivanovich',  'ISIT',  '1988-12-25', 790);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT, BIRTHDAY,SALARY )
+                       values  ('KLV',    'Kolesnikov Leonid Valerevich',  'ISIT',  '1955-12-22', 780);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('GOV',    'German Oleg Vitoldovich',  'ISIT',  '1988-02-02', 760);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('LAP',    'Lashenko Anatoliy Pavlovich',  'ISIT',  '1988-08-28', 888);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('BAV',    'Brakovich Andrey Victorovich',  'ISIT',  '1988-12-01', 750);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('DDA',     'Dedko Alexander Arkadevich',  'ISIT',  '1966-12-22', 740);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('KAS',     'Kabaylo Alexander Seraphimovich',  'ISIT',  '1992-06-23', 850);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('YPP',     'Yrbanovich Pavel Pavlovich',  'ISIT',  '1982-12-01', 670);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('RDM',     'Romanenko Dmitriy Mihaylovich',  'ISIT',  '1981-10-01', 960);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('PNN',  'Pystovalova Natalia Nikolaevna', 'ISIT' ,  '1989-12-07', 876);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('BSA',   'Bartashevich Svytoslav Alexandrovich',  'PEAIPS',  '1988-11-01', 865);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('BSI',   'Baranovskiy Stasislav Ivanovich',  'ETAM',  '1987-12-22', 830);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('NAV',   'Neverov Alexander Vasilevich',  'MAEOEM',  '1984-11-11', 690);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('RAI',   'Rokovich Andrey Ivanovich',  'HS',  '1992-03-01', 720);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('DMN', 'Demidko Marina Nikolaevna',  'LDALC',  '1988-02-01', 865);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('MVP',   'Mashkovskiy Vladimir Petrovich',  'FM',  '1966-03-22', 870);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('LKV',   'Laboha Konstantin Valentinovich',  'FF',  '1988-07-03', 780);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('ZVB',   'Zvyagincev Vacheslav Borisovich',  'FPAWS',  '1977-11-13', 750);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('BVS',   'Bezborodov Vladimir Stepanovic',  'OC', '1988-12-08', 670);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('PNR',   'Prokopchyk Nikalay Romanovich',  'TOPSAPOPM',  '1972-01-01', 760);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('NMT',   'Nasovec Mihail Trofimovich',  'FT',  '1983-11-01', 880);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('MSP',   'Mohov Sergey Petrovich',  'FMALT',  '1985-12-01', 777);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('ELS',   'Eshenko Ludmila Semenovna',  'TOISAGCT',  '1966-06-22', 666);
+insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT , BIRTHDAY,SALARY)
+                       values  ('JIM',   'Jarski Ivan Mihaylovich',  'CTOEPAMOEE',  '1998-10-03', 750);
+
 ---------------------------------------------------------------------------------------------------------------------
 DROP TABLE SUBJECT 
 CREATE TABLE SUBJECT

@@ -1,0 +1,307 @@
+-- ********** TASK1 ********** --
+create or replace procedure show_orders_by_customer(
+        cust_n customers.cust_num%type
+    )
+is
+    NOT_FOUND_CUSTOMER exception;
+    counter_customers number;
+    
+    cursor curs_orders(cust_n customers.cust_num%type)
+        is select * from orders
+            where orders.cust = cust_n;
+    orders_rc curs_orders%rowtype;
+    
+    avgamount orders.amount%type := 0;
+begin
+    select count(*) into counter_customers
+    from customers
+    where cust_num = cust_n;
+    
+    if(counter_customers = 0)
+    then
+        raise NOT_FOUND_CUSTOMER;
+    end if;
+    
+    for orders_rc in curs_orders(cust_n)
+    loop
+        dbms_output.put_line(orders_rc.order_num || ' ' || orders_rc.amount);
+    end loop;
+    
+    select avg(amount) into avgamount from orders
+        where orders.cust = cust_n;
+    dbms_output.put_line('Avg amount: ' || avgamount);
+    
+    exception
+        when NOT_FOUND_CUSTOMER
+            then begin
+                dbms_output.put_line('Not found customer exception!');
+            end;
+        when others
+            then begin
+                dbms_output.put_line(sqlerrm);
+            end;
+end show_orders_by_customer;
+
+begin
+    show_orders_by_customer(cust_n => 2111);
+end;
+
+-- ********** TASK2 ********** --
+create or replace function getQtyOrdersForInterval(
+        cust_n in customers.cust_num%type,
+        start_date date,
+        end_date date
+    )
+return number
+is 
+    WRONG_DATE_INTERVAL exception;
+    NOT_FOUND_CUSTOMER exception;
+    
+    counter_customers number;
+    qtyOrders_rc number := 0;
+begin
+    if(start_date > end_date)
+    then 
+        raise WRONG_DATE_INTERVAL;
+    end if;
+    
+    select count(*) into counter_customers 
+    from customers
+    where cust_num = cust_n;
+    
+    if(counter_customers = 0)
+    then 
+        raise NOT_FOUND_CUSTOMER;
+    end if;
+    
+    select count(*) into qtyOrders_rc 
+    from orders 
+    where 
+        cust = cust_n and
+        order_date between start_date and end_date and
+        rownum = 1;
+        
+    return qtyOrders_rc; 
+    exception 
+        when WRONG_DATE_INTERVAL
+            then begin
+                dbms_output.put_line('Wrong date interval exception!');
+                return -1;
+            end;
+        when NOT_FOUND_CUSTOMER
+            then begin
+                dbms_output.put_line('Not found customer exception!');
+                return -1;
+            end;
+        when others 
+            then begin
+                dbms_output.put_line(sqlerrm);
+                return -1;
+            end;
+end getQtyOrdersForInterval;
+
+select cust_num, getQtyOrdersForInterval(cust_num, to_date('12.01.2008', 'DD.MM.YYYY'), to_date('17.02.2008', 'DD.MM.YYYY')) qty_orders from customers;
+begin
+    dbms_output.put_line(getQtyOrdersForInterval(2111, to_date('11.01.2008', 'DD.MM.YYYY'), to_date('17.02.2007', 'DD.MM.YYYY')));
+end;
+
+-- ********** TASK3 ********** --
+create or replace procedure showAllProductsByCustomer(
+        cust_n in customers.cust_num%type
+    )
+is
+    cursor curs_products(cust_n customers.cust_num%type)
+        is select p.mfr_id, p.product_id, p.description, p.price, p.qty_on_hand, sum(o.amount) total_amount
+            from products p, orders o
+            where 
+                p.mfr_id = o.mfr and 
+                p.product_id = o.product and
+                o.cust = cust_n
+            group by p.mfr_id, p.product_id, p.description, p.price, p.qty_on_hand
+            order by total_amount desc;
+    product_rc curs_products%rowtype;
+begin
+    for product_rc in curs_products(cust_n)
+    loop
+        dbms_output.put_line(product_rc.mfr_id || ' ' || product_rc.product_id || ' ' || product_rc.price || ' ' || product_rc.qty_on_hand || ' ' || product_rc.total_amount);
+    end loop;
+    
+    exception
+        when others then dbms_output.put_line(sqlerrm);
+end showAllProductsByCustomer;
+
+begin
+  showAllProductsByCustomer(2111);
+end;
+
+-- ********** TASK4 ********** --
+create or replace function getQtyOrdersForIntervalTask4(
+        start_date date,
+        end_date date
+    )
+return number
+is
+    qtyOrders_rc number;
+begin
+    select count(*) into qtyOrders_rc
+    from orders
+    where 
+        order_date >= start_date and
+        order_date <= end_date;
+    
+    return qtyOrders_rc; 
+    exception 
+        when others then return -1;
+end getQtyOrdersForIntervalTask4;
+
+begin
+    dbms_output.put_line(getQtyOrdersForIntervalTask4(to_date('01.01.2008', 'DD.MM.YYYY'), to_date('01.01.2009', 'DD.MM.YYYY')));
+end;
+
+-- ********** TASK5 ********** --
+create or replace procedure showCustomerForInterval(
+        start_date date,
+        end_date date
+    )
+is
+    cursor curs_customer(start_date date, end_date date)
+        is select c.cust_num, c.company, c.cust_rep, c.credit_limit, sum(o.amount) total_amount
+            from customers c, orders o
+            where 
+                c.cust_num = o.cust and
+                o.order_date >= start_date and
+                o.order_date <= end_date
+            group by c.cust_num, c.company, c.cust_rep, c.credit_limit
+            order by total_amount desc;
+    customer_rc curs_customer%rowtype;
+begin
+    for customer_rc in curs_customer(start_date, end_date)
+    loop
+        dbms_output.put_line(customer_rc.cust_num || ' ' || customer_rc.company || ' ' || customer_rc.cust_rep || ' ' || customer_rc.credit_limit || ' ' || customer_rc.total_amount);
+    end loop;
+end showCustomerForInterval;
+
+begin
+    showCustomerForInterval(to_date('01.01.2008', 'DD.MM.YYYY'), to_date('01.01.2009', 'DD.MM.YYYY'));
+end;
+
+-- ********** TASK6 ********** --
+-- идентична -> TASK4
+
+-- ********** TASK7 ********** --
+create or replace procedure showCustomerForIntervalTask7(
+        start_date date,
+        end_date date
+    )
+is
+    cursor curs_customer(start_date date, end_date date)
+        is select c.cust_num, c.company, c.cust_rep, c.credit_limit
+            from customers c, orders o
+            where 
+                c.cust_num = o.cust and
+                o.order_date >= start_date and
+                o.order_date <= end_date
+            group by c.cust_num, c.company, c.cust_rep, c.credit_limit;
+    customer_rc curs_customer%rowtype;
+begin
+    for customer_rc in curs_customer(start_date, end_date)
+    loop
+        dbms_output.put_line(customer_rc.cust_num || ' ' || customer_rc.company || ' ' || customer_rc.cust_rep || ' ' || customer_rc.credit_limit);
+    end loop;
+end showCustomerForIntervalTask7;
+
+begin
+    showCustomerForIntervalTask7(to_date('01.01.2008', 'DD.MM.YYYY'), to_date('01.01.2009', 'DD.MM.YYYY'));
+end;
+
+-- ********** TASK8 ********** --
+create or replace function getQtyCustomerByProduct(
+        mfr_i products.mfr_id%type,
+        product_i products.product_id%type
+    )
+return number
+is
+    qtyCustomer_rc number;
+begin
+    select count(*) into qtyCustomer_rc
+    from 
+        (select orders.cust
+        from orders
+        where 
+            orders.mfr = mfr_i and
+            orders.product = product_i
+        group by orders.cust);
+
+    return qtyCustomer_rc; 
+    exception
+        when others then return -1;
+end getQtyCustomerByProduct;
+
+begin
+    dbms_output.put_line(getQtyCustomerByProduct('ACI', '41003'));
+end;
+
+-- ********** TASK9 ********** --
+create or replace procedure increasePriceOfProduct(
+        mfr_i products.mfr_id%type,
+        product_i products.product_id%type
+    )
+is
+begin
+    update products 
+    set price = price * 1.1
+    where 
+        products.mfr_id = mfr_i and
+        products.product_id = product_i;
+end increasePriceOfProduct;
+
+select *
+from products
+where 
+    products.mfr_id = 'ACI' and
+    products.product_id = '41003';
+    
+begin
+    increasePriceOfProduct('ACI', '41003');
+end;
+
+-- ********** TASK10 ********** --
+create or replace function getQtyOrdersByYearByCustomer(
+        cust_n in customers.cust_num%type,
+        search_year in number
+    )
+return number
+is
+    qtyOrders_rc number;
+begin
+    select count(*) into qtyOrders_rc
+    from orders
+    where
+        orders.cust = cust_n and
+        extract(year from orders.order_date) = search_year;
+        
+    return qtyOrders_rc;
+    exception
+        when others then return -1;
+end getQtyOrdersByYearByCustomer;
+
+begin
+    dbms_output.put_line(getQtyOrdersByYearByCustomer(2111, 2007));
+end;
+
+
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
